@@ -14,8 +14,7 @@ protocol CellConfigurer:class {
     static func reuseIdentifier()->String
 }
 
-extension UICollectionViewCell:CellConfigurer {
-    
+extension CellConfigurer {
     static func nib() -> UINib {
         return UINib.init(nibName: self.reuseIdentifier(), bundle: nil)
     }
@@ -24,6 +23,9 @@ extension UICollectionViewCell:CellConfigurer {
         return String(describing: self)
     }
 }
+
+class TableViewCell:UITableViewCell,CellConfigurer {}
+class CollectionViewCell:UICollectionViewCell,CellConfigurer {}
 
 extension UINib {
     class func nib(with name:String)->UINib {
@@ -39,3 +41,5 @@ extension Bundle {
         fatalError("Could not load view with type " + String(describing: type))
     }
 }
+
+
